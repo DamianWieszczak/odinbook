@@ -6,5 +6,5 @@ class User < ApplicationRecord
 
   has_many :friendships
   has_many :friends, through: :frienships
-  has_many :posts
+  has_many :posts, foreign_key: :author_id
 end
