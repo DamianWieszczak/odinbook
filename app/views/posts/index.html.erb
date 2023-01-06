@@ -1,10 +1,10 @@
-<p class="navbar-text float-right">
-  <% if user_signed_in? %>
-    Logged in as <strong><%= current_user.email %></strong>
-    <%= link_to "Edit profile", edit_user_registration_path, class: "navbar-link" %>
-    <%= button_to "Logout", destroy_user_session_path, method: :delete, class: "navbar-link" %>
-  <% else %>
-    <%= link_to "Sign Up", new_user_registration_path, class: "navbar-link" %>
-    <%= link_to "Login", new_user_session_path, class: "navbar-link" %>
+<h1>Posts</h1>
+
+<ul>
+  <% @posts.each do |post| %>
+    <h2><%= link_to "#{post.title.capitalize}", post_path(post.id) %></h2>
+    <% render "post", post: post %>
   <% end %>
-</p>
+</ul>
+
+<%= button_to "New Post", new_post_path, method: "get" %>
