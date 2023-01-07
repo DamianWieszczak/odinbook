@@ -14,4 +14,5 @@ class User < ApplicationRecord
   def created_time_formatted
     created_at.strftime("%b %-d, %Y")
   end
+  
 end
