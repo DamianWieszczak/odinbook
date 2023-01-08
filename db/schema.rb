@@ -10,9 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_01_06_152107) do
+ActiveRecord::Schema[7.0].define(version: 2023_01_08_153229) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "friend_requests", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "request_sender_id"
+    t.bigint "request_receiver_id"
+    t.index ["request_receiver_id"], name: "index_friend_requests_on_request_receiver_id"
+    t.index ["request_sender_id"], name: "index_friend_requests_on_request_sender_id"
+  end
 
   create_table "friendships", force: :cascade do |t|
     t.bigint "user_id", null: false
@@ -44,6 +53,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_06_152107) do
     t.index ["username"], name: "index_users_on_username", unique: true
   end
 
+  add_foreign_key "friend_requests", "users", column: "request_receiver_id"
+  add_foreign_key "friend_requests", "users", column: "request_sender_id"
   add_foreign_key "friendships", "users"
   add_foreign_key "posts", "users", column: "author_id"
 end
